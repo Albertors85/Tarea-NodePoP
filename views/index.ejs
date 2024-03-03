@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Bienvenido a  <%= title %> la mayor web de artículos.</p>
+
+    <h3>Los mejores precios</h3>
+    <ul>
+      <% anuncios.filter(anuncio => anuncio.venta === true).forEach(anuncio => { %>
+        <li><%= anuncio.name %> - <%= anuncio.precio %> Euros <%= anuncio.tags %></li>
+      <% }); %>
+    </ul>
+
+    <h3>Los más buscados</h3>
+      <ul>
+        <% anuncios.filter(anuncio => anuncio.venta === false).forEach(anuncio => { %>
+            <li><%= anuncio.name %> - <%= anuncio.precio %> Euros <%= anuncio.tags %></li>
+        <% }); %>
+      </ul>
+  </body>
+</html>
