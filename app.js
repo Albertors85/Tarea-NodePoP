@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
+const i18n = require('./lib/i18nConfi');
+
 
 require('./lib/connectMoogoose');
 
@@ -29,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Rutas del WEbsite
  */
-
+app.use(i18n.init);
 app.use('/', indexRouter);
 
 /**

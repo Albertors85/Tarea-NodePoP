@@ -6,9 +6,9 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Bienvenido a  <%= title %> la mayor web de artículos.</p>
+    <p><%= __('Welcome to ')%>  <%= title %> la mayor web de artículos.</p>
 
-    <h3>Los mejores precios</h3>
+    <h3><%= __('the best price')%></h3>
     <ul>
       <% anuncios.filter(anuncio => anuncio.venta === true).forEach(anuncio => { %>
         <li><%= anuncio.name %> - <%= anuncio.precio %> Euros <%= anuncio.tags %></li>
@@ -21,5 +21,7 @@
             <li><%= anuncio.name %> - <%= anuncio.precio %> Euros <%= anuncio.tags %></li>
         <% }); %>
       </ul>
+
+      <h2><%= __("Multilanguage") %> error a propósito</h2>
   </body>
 </html>
