@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 const i18n = require('./lib/i18nConfi');
+const LanguajeController = require('./controllers/LanguageController.js');
 
+const languajeController = new LanguajeController();
 
 require('./lib/connectMoogoose');
 
@@ -33,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  */
 app.use(i18n.init);
 app.use('/', indexRouter);
+app.get('/change-locale/:locale',languajeController.changeLocale);
 
 /**
  * Rutas del Api
