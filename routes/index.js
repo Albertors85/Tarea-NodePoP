@@ -6,7 +6,10 @@ const Articulo =require('../modelos/Articulo');
 /* Get filtrado */
 
 router.get('/',async(req, res, next) =>{
+  
+
   try{
+   
     const filter={};
 
     //filtro por nombre 
@@ -38,13 +41,14 @@ router.get('/',async(req, res, next) =>{
     const limit=req.query.limit;
 
     const articulos =await Articulo.listar(filter,skip, limit, sort, field);
-      
+  
     res.render('index',{ anuncios: articulos, title: "NodePoP" });
 
   }catch(error){
       next(error)
   }
 });
+
 
 
 

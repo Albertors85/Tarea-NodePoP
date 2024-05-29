@@ -3,14 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session= require('express-session');
 var indexRouter = require('./routes/index');
 const i18n = require('./lib/i18nConfi');
 const LanguajeController = require('./controllers/LanguageController.js');
+const PruebaControll = require('./controllers/prueba.js')//borrar
+const LoginController = require('./controllers/LoginController.js')
 
 const languajeController = new LanguajeController();
+const pruebaController= new PruebaControll();// borrarrr
+const loginController = new LoginController();
 
 require('./lib/connectMoogoose');
-
 var app = express();
 
 // view engine setup
@@ -34,8 +38,20 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Rutas del WEbsite
  */
 app.use(i18n.init);
+app.use(session({
+  name:'nodePop-Session',
+  secret: 'efh98fhf89djndjkvkjre9493riojscnsdmnc',
+  saveUninitialized: true,
+  resave: false,
+  cookie:{
+    maxAge: 1000*60*60*12*1
+  }
+  }));
+  
+app.get('/p', pruebaController.index);
 app.use('/', indexRouter);
 app.get('/change-locale/:locale',languajeController.changeLocale);
+app.get('/login', loginController.index);
 
 /**
  * Rutas del Api

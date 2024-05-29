@@ -2,7 +2,12 @@
 
 const readline = require('node:readline');
 const connection = require('./lib/connectMoogoose');
+const {Articulo, User}= require('./modelos')
+
+/*
 const Articulo = require('./modelos/Articulo');
+const User = require('./modelos/user');*/
+
 
 main().catch(err => console.log(err, 'Ha habido un error cargando'));
 
@@ -16,7 +21,19 @@ async function main(){
     };
 
     await initAnuncios();
+    await initUsers();
     connection.close();
+
+    async function initUsers(){
+        const deleted = await User.deleteMany();
+        console.log(`eliminados ${deleted.deletedCount} usuarios`)
+        const inserted = await User.insertMany([
+            {email: 'user@example.com', password:'1234'},
+            {email: 'natuki@com', password:'1234'},
+            {email: 'natukiBetty@com', password:'1234'}
+        ]);
+        console.log('has creado dos usuarios')
+    }
 
     async function initAnuncios(){
 
