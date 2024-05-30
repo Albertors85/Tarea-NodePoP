@@ -8,6 +8,8 @@
     "init-db": "cross-env node init-db-Nodepop.js"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.3",
     "debug": "~2.6.9",

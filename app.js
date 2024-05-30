@@ -4,16 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session= require('express-session');
+const MongoStore = require('connect-mongo');
 var indexRouter = require('./routes/index');
 const i18n = require('./lib/i18nConfi');
 const LanguajeController = require('./controllers/LanguageController.js');
 const PruebaControll = require('./controllers/prueba.js')//borrar
-const LoginController = require('./controllers/LoginController.js')
+const LoginController = require('./controllers/LoginController.js');
+const PrivateControllers = require('./controllers/PrivateControlers.js');
+const sessionAuth = require('./lib/sessionAuthMiddleware.js')
 
 const languajeController = new LanguajeController();
 const pruebaController= new PruebaControll();// borrarrr
 const loginController = new LoginController();
-
+const privateControllers = new PrivateControllers();
 require('./lib/connectMoogoose');
 var app = express();
 
@@ -21,6 +24,7 @@ var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 /**
  * Middlewares
@@ -32,6 +36,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Rutas del Api
+ */
+
+app.use('/articulos', require('./routes/api/articulos'));
 
 
 /**
@@ -45,19 +55,26 @@ app.use(session({
   resave: false,
   cookie:{
     maxAge: 1000*60*60*12*1
-  }
-  }));
+  },
+  store : MongoStore.create({
+    mongoUrl: 'mongodb://127.0.0.1:27017/NodepopArt'
+  })
+}));
+
+app.use((req,res,next)=>{
+  res.locals.session = req.session;
+  next();
+})
+
   
 app.get('/p', pruebaController.index);
 app.use('/', indexRouter);
 app.get('/change-locale/:locale',languajeController.changeLocale);
 app.get('/login', loginController.index);
+app.post('/login', loginController.post);
+app.get('/private',sessionAuth, privateControllers.index);
+app.get('/logout', loginController.logOut);
 
-/**
- * Rutas del Api
- */
-
-app.use('/articulos', require('./routes/api/articulos'));
 
 
 // catch 404 and forward to error handler

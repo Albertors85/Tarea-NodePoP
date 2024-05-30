@@ -3,6 +3,11 @@
 	"the best price": "Los mejores precios",
 	"Multilanguage": "Multilenguage",
 	"Features": "Features",
-	"Private zone": "Private zone",
-	"Download": "Download"
+	"Private zone": "Zona privada",
+	"Download": "descargas",
+	"invalid credentials": "el password no es correcto",
+	"Password ": "Contraseña ",
+	"Login": "Login",
+	"Logout": "Logout",
+	"Private": "Private"
 }

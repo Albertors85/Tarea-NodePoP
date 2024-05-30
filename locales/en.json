@@ -4,5 +4,10 @@
 	"Multilanguage": "Multilanguage",
 	"Features": "Features",
 	"Private zone": "Private zone",
-	"Download": "Download"
+	"Download": "Download",
+	"invalid credentials": "invalid credentials",
+	"Password ": "Password ",
+	"Login": "Login",
+	"Logout": "Logout",
+	"Private": "Private"
 }

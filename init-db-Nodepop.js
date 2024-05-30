@@ -29,7 +29,7 @@ async function main(){
         console.log(`eliminados ${deleted.deletedCount} usuarios`)
         const inserted = await User.insertMany([
             {email: 'user@example.com', password:'1234'},
-            {email: 'natuki@com', password:'1234'},
+            {email: 'natuki@com', password: await User.hashPassword('1234')},
             {email: 'natukiBetty@com', password:'1234'}
         ]);
         console.log('has creado dos usuarios')
