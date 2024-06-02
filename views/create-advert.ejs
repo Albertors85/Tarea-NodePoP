@@ -1,0 +1,40 @@
+<%- include('headers.ejs') %>
+    <section >
+        <form method="post">
+
+            <div class="mb-3">
+                <label  class="form-label"><%= __('Object')%></label>
+                <input name="name" type="text" value='sadsd' class="form-control" >
+
+            </div>
+
+            <div class="mb-3">
+                <label  class="form-label"><%= __('Type ')%> </label>
+                <input name="venta" type="text" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label  class="form-label"><%= __('Price')%></label>
+                <input name="precio" type="number" value='' class="form-control" >
+
+            </div>
+
+            <div class="mb-3">
+                <label  class="form-label"><%= __('Photo ')%> </label>
+                <input name="foto" type="file" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label  class="form-label"><%= __('Tags')%></label>
+                <input name="tags" type="text" value='' class="form-control" >
+
+            </div>
+
+        
+
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <%= error %>
+        </form>
+</section>
+<%- include('footer.ejs') %>

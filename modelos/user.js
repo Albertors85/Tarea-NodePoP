@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const usersSchema = mongoose.Schema({
-    email: String,
+    email: {type: String, unique:true},
     password : String
 });
 
@@ -10,8 +10,8 @@ usersSchema.statics.hashPassword = function(passwordEntera){
     return bcrypt.hash(passwordEntera, 7);
 };
 
-usersSchema.methods.comparePassword = function(passEntera){
-    return bcrypt.compare(passEntera, this.password);
+usersSchema.methods.comparePassword = function(passwordEntera){
+    return bcrypt.compare(passwordEntera, this.password);
 };
 
 

@@ -2,10 +2,11 @@ const mongoose =require('mongoose');
 
 const productSchema = mongoose.Schema({
     name : { type: String, required:true, index:true},
-    venta : {type: Boolean, required: true, index:true},
+    venta : {type: Boolean, index:true},
     precio : {type: Number, required: true},
     foto: String,
     tags:[String],
+    owner: {ref: 'Usuario', type: mongoose.Schema.ObjectId}
 
     
 });

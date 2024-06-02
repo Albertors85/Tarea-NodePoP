@@ -7,16 +7,18 @@ const session= require('express-session');
 const MongoStore = require('connect-mongo');
 var indexRouter = require('./routes/index');
 const i18n = require('./lib/i18nConfi');
+const sessionAuth = require('./lib/sessionAuthMiddleware.js')
+const jwtAuth = require('./lib/jwtAuthMiddleware.js')
 const LanguajeController = require('./controllers/LanguageController.js');
-const PruebaControll = require('./controllers/prueba.js')//borrar
 const LoginController = require('./controllers/LoginController.js');
 const PrivateControllers = require('./controllers/PrivateControlers.js');
-const sessionAuth = require('./lib/sessionAuthMiddleware.js')
+const CreateController = require('./controllers/CreateController.js')
 
 const languajeController = new LanguajeController();
-const pruebaController= new PruebaControll();// borrarrr
 const loginController = new LoginController();
 const privateControllers = new PrivateControllers();
+const createAdverts = new CreateController();
+
 require('./lib/connectMoogoose');
 var app = express();
 
@@ -30,6 +32,7 @@ app.set('view engine', 'ejs');
  * Middlewares
  */
 
+// tituloooooo aqui local
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,8 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Rutas del Api
  */
-
-app.use('/articulos', require('./routes/api/articulos'));
+app.post('/api/login',loginController.postApiJWT);
+app.use('/articulos',jwtAuth , require('./routes/api/articulos'));
 
 
 /**
@@ -67,13 +70,16 @@ app.use((req,res,next)=>{
 })
 
   
-app.get('/p', pruebaController.index);
+
 app.use('/', indexRouter);
+app.use('/users', require('./routes/userApi.js'));
 app.get('/change-locale/:locale',languajeController.changeLocale);
-app.get('/login', loginController.index);
-app.post('/login', loginController.post);
 app.get('/private',sessionAuth, privateControllers.index);
+app.get('/login', loginController.index);
+app.post('/login', loginController.post, loginController.postApiJWT);
 app.get('/logout', loginController.logOut);
+app.get('/create-advert', createAdverts.newAdvert);
+app.post('/create-advert', createAdverts.postCreate);
 
 
 

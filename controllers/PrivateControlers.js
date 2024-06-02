@@ -1,4 +1,4 @@
-const {User} = require('../modelos');
+const {User, Articulo} = require('../modelos');
 const createError = require('http-errors');
 
 class PrivateControllers {
@@ -14,7 +14,11 @@ class PrivateControllers {
                 return
             };
 
-            res.render('private', {title: "NodePoP", email: usuario.email})
+            const articulos = await Articulo.find({owner:userId})
+            res.render('private', {
+                title: "NodePoP", email: usuario.email,
+                articulos
+            })
 
         }catch(error){
             next(error)

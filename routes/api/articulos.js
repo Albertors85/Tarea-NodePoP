@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const Articulo =require('../../modelos/Articulo');
-
+const upload = require('../../lib/uploadController');
 
 //Get devuelve los anuncios filtrados
 
 router.get('/',async(req, res, next) =>{
     try{
+        const  userId = req.apiIdUser;
         const filter={};
 
+        filter.owner = userId;
         //filtro por nombre y venta
         const filterName= req.query.name;
         if (filterName) {
@@ -45,11 +47,12 @@ router.get('/',async(req, res, next) =>{
 
 //Post crea anuncios
 
-router.post('/', async(req,res,next)=>{
+router.post('/',upload.single('foto'), async(req,res,next)=>{
     try{
         const data =req.body;
         // creamos una instancia de articulo en memoria
         const articulo = new Articulo(data);
+        articulo.foto = req.file.filename;
         // lo guardamos en la base de datos
         const articuloGuardado = await articulo.save();
 
