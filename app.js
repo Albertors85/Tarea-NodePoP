@@ -1,3 +1,4 @@
+var prueba = require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -60,7 +61,7 @@ app.use(session({
     maxAge: 1000*60*60*12*1
   },
   store : MongoStore.create({
-    mongoUrl: 'mongodb://127.0.0.1:27017/NodepopArt'
+    mongoUrl: process.env.MONGODB_URL
   })
 }));
 
