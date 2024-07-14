@@ -1,3 +1,18 @@
+# TAREA Despliegue en servidores:
+
+1. Ip para acceder a la web de react
+```
+13.60.162.42
+```
+2. Dns para entrar en la aplicacion de nodepop 
+```
+http://ec2-13-60-162-42.eu-north-1.compute.amazonaws.com:3000/
+
+```
+--usuairo natuki@com
+--password 1234
+
+
 # Tarea-NodePoP
 
 install dependencies.
