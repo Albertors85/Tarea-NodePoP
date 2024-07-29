@@ -6,7 +6,7 @@
 ```
 2. Dns para entrar en la aplicacion de nodepop 
 ```
-http://ec2-13-60-162-42.eu-north-1.compute.amazonaws.com:3000/
+http://ec2-13-60-162-42.eu-north-1.compute.amazonaws.com
 
 ```
 --usuairo natuki@com
